@@ -69,4 +69,27 @@ input.onpaste = function(){
 startButton.onclick = function(){
     this.remove();
     input.focus();
+    // Generate word function
+    genWords();
 };
+
+function genWords(){
+    let randomWord = words[Math.floor(Math.random() * words.length)];
+    let wordIndex = words.indexOf(randomWord);
+    words.splice(wordIndex, 1);
+    theWord.innerHTML = randomWord;
+    upcomingWords.innerHTML = '';
+    for(let i = 0; i < words.length; i++){
+        let div = document.createElement('div');
+        let txt = document.createTextNode(words[i]);
+        div.appendChild(txt);
+        upcomingWords.appendChild(div);
+    }
+    startPlay();
+}
+
+function startPlay(){
+    let start = setInterval(() =>{
+        timeLeftSpan.innerHTML--;
+    }, 1000);
+}
