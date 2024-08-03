@@ -31,7 +31,6 @@ const words = [
     'Playing'
 ];
 
-// Setting levels
 const lvls = {
     'Easy': 5,
     'Normal': 3,
@@ -42,7 +41,6 @@ const lvls = {
 let defaultLevelName = 'Normal'; // Change level from here
 let defaultLevelSeconds = lvls[defaultLevelName];
 
-// Catch selectors
 let startButton = document.querySelector('.start');
 let lvlNameSpan = document.querySelector('.message .lvl');
 let secondsSpan = document.querySelector('.message .seconds');
