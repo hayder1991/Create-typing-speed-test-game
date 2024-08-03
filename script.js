@@ -50,7 +50,7 @@ let input = document.querySelector('.input');
 let timeLeftSpan = document.querySelector('.time span');
 let scoreGot = document.querySelector('.score .got');
 let scoreTotal = document.querySelector('.score .total');
-let finshMessage = document.querySelector('.finsh');
+let finishMessage = document.querySelector('.finish');
 
 // Setting level name + seconds + score
 lvlNameSpan.innerHTML = defaultLevelName;
@@ -59,25 +59,25 @@ timeLeftSpan.innerHTML = defaultLevelSeconds;
 scoreTotal.innerHTML = words.length;
 
 // Disable paste event
-input.onpaste = function(){
+input.onpaste = function () {
     return false;
 };
 
 // Start game
-startButton.onclick = function(){
+startButton.onclick = function () {
     this.remove();
     input.focus();
     // Generate word function
     genWords();
 };
 
-function genWords(){
+function genWords() {
     let randomWord = words[Math.floor(Math.random() * words.length)];
     let wordIndex = words.indexOf(randomWord);
     words.splice(wordIndex, 1);
     theWord.innerHTML = randomWord;
     upcomingWords.innerHTML = '';
-    for(let i = 0; i < words.length; i++){
+    for (let i = 0; i < words.length; i++) {
         let div = document.createElement('div');
         let txt = document.createTextNode(words[i]);
         div.appendChild(txt);
@@ -86,8 +86,34 @@ function genWords(){
     startPlay();
 }
 
-function startPlay(){
-    let start = setInterval(() =>{
+function startPlay() {
+    timeLeftSpan.innerHTML = defaultLevelSeconds;
+    let start = setInterval(() => {
         timeLeftSpan.innerHTML--;
-    }, 1000);
+        if (timeLeftSpan.innerHTML === '0') {
+            clearInterval(start);
+            if (theWord.innerHTML.toLocaleLowerCase() === input.value.toLocaleLowerCase()) {
+                input.value = '';
+                scoreGot.innerHTML++;
+                if (words.length > 0) {
+                    genWords();
+                }
+                else {
+                    let span = document.createElement('span');
+                    span.className = 'good';
+                    let spanText = document.createTextNode('Congrats');
+                    span.appendChild(spanText);
+                    finishMessage.appendChild(span);
+                    upcomingWords.remove();
+                }
+            }
+                else {
+                    let span = document.createElement('span');
+                    span.className = 'bad';
+                    let spanText = document.createTextNode('Game Over');
+                    span.appendChild(spanText);
+                    finishMessage.appendChild(span);
+                }
+            }
+        }, 1000);
 }

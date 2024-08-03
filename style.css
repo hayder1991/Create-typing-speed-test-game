@@ -99,15 +99,15 @@ body{
     font-weight: bold;
     color: #009688;
 }
-.finsh{
+.finish{
     font-weight: bold;
     font-size: 40px;
     text-align: center;
     padding: 15px;
 }
-.finsh .good{
+.finish .good{
     color: var(--main-color);
 }
-.finsh .bad{
+.finish .bad{
     color: red;
 }
